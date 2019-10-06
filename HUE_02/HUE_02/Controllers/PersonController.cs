@@ -13,6 +13,7 @@ namespace HUE_02.Controllers
     {
         private static readonly List<Person> Persons = new List<Person>
         {
+            // Avoid checking in real names and email addresses to GitHub, might be misused
             new Person
             {
                 ID=0,
@@ -38,6 +39,7 @@ namespace HUE_02.Controllers
         [HttpPost]
         public IActionResult AddContact([FromBody] Person newContact)
         {
+            // Prefer `.Any`
             if (Persons.Where(person => person.ID == newContact.ID).Count() == 0)
             {
                 Persons.Add(newContact);
@@ -53,6 +55,7 @@ namespace HUE_02.Controllers
         {
             for(int i=0; i< Persons.Count(); i++)
             {
+                // Spec: Contains, not equal
                 if (Persons.ElementAt(i).FirstName.CompareTo(name) == 0 || Persons.ElementAt(i).LastName.CompareTo(name) == 0)
                 {
                     return Ok(Persons.ElementAt(i));
